@@ -38,8 +38,8 @@ function App() {
     <>
       {/* To Do List Start */}
       <div className='container-fluid'>
-        <div className='row d-flex justify-content-center'>
-          <div className='col-auto col-lg-5 col-xg-5 col-sm-6 col-md-6 shadow bg-white mt-5 px-0 rounded'>
+        <div className='row d-flex justify-content-center mx-2'>
+          <div className='col col-lg-5 col-xg-5 col-sm-6 col-md-6 shadow bg-white mt-5 px-0 rounded'>
             <div className='row d-flex justify-content-center mt-3'>
               <div className='col-auto h3 myfont text-center text-opacity-25 text-dark'>To Do App</div>
             </div>
