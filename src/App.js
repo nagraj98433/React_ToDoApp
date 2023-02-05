@@ -7,6 +7,7 @@ import ErrorMsg from './ErrorMsg';
 
 function App() {
 
+
   let [visibility, setuserdvisibility] = useState(['invisible', 'border-light']);
   let [userInput, setuserInput] = useState();
   let [userVal, setuserVal] = useState(['Javascript', 'Flutter', 'Reactjs',
@@ -25,31 +26,26 @@ function App() {
   }
 
   // console.log(visibility);
-  // console.log(userVal);
+  // console.log(userEdit);
 
 
   function addInList() {
-
-    if (userInput === "" || userInput === undefined) {
-      setuserdvisibility((preval) => {
-        let oldVal = [...preval];
-        oldVal[0] = 'visible';
-        oldVal[1] = 'border-danger';
-        return oldVal;
-      })
-    }
-    else {
-      setuserVal((preval) => {
+    (userInput === "" || userInput === undefined) ? setuserdvisibility((preval) => {
+      let oldVal = [...preval];
+      oldVal[0] = 'visible';
+      oldVal[1] = 'border-danger';
+      return oldVal;
+    })
+      : setuserVal((preval) => {
         return [userInput, ...preval];
       });
-    }
 
     setuserInput('');
   }
-
   function sendValBack(e) {
-    // console.log(e.target.innerHTML);
+    // console.log(e);
     setuserInput(e.target.innerHTML);
+
 
     (userInput === "" || userInput === undefined) ? setuserdvisibility((preval) => {
       let oldVal = [...preval];
@@ -57,6 +53,7 @@ function App() {
       oldVal[1] = 'border-light';
       return oldVal;
     }) : console.log('No value')
+
 
   }
 
@@ -100,7 +97,7 @@ function App() {
             <div className='py-2'>
               <div className='List_body_scoll'>
                 {userVal.map((val, ind) => {
-                  return <ListContainer key={ind} value={val} SendValBack={sendValBack} />
+                  return <ListContainer key={ind} value={val} IndexNum={ind} SendValBack={sendValBack} />
                 })}
               </div>
             </div>
