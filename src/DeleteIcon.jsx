@@ -4,7 +4,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 function DeleteIcon() {
     return (
-        <span type="button" className='text-opacity-25 text-dark'><DeleteOutlineIcon /></span>
+        <span type="button" className='text-opacity-25 text-light ps-1 deletIcon'><DeleteOutlineIcon /></span>
     )
 }
 

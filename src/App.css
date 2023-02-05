@@ -6,9 +6,12 @@
   padding: 0px;
   box-sizing: border-box;
 }
+html {
+  font-size: 100%;
+}
 
 body {
-  background-color: #000509d1;
+  background-color: #000509;
   /* background-color: light; */
 }
 .myfont {
@@ -24,4 +27,25 @@ body {
 }
 .mytransition {
   transition: visibility 2s ease-out;
+}
+.myBorderTransition {
+  transition: border 2s ease-in-out;
+}
+.List_body_scoll {
+  max-height: 65vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  color-scheme: dark;
+}
+.deletIcon:hover svg {
+  color: #ff2137;
+}
+.checkBoxIcon:hover svg {
+  color: #20ff98;
+}
+.ContentScroll::-webkit-scrollbar {
+  display: none;
+}
+.myfontHover:hover {
+  color: white;
 }
