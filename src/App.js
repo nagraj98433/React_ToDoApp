@@ -5,11 +5,15 @@ import AddIcon from '@mui/icons-material/Add';
 import ListContainer from './ListContainer';
 import ErrorMsg from './ErrorMsg';
 
+
+
+
 function App() {
 
 
   let [visibility, setuserdvisibility] = useState(['invisible', 'border-light']);
   let [userInput, setuserInput] = useState();
+  let [userEdit, setuserEdit] = useState([]);
   let [userVal, setuserVal] = useState(['Javascript', 'Flutter', 'Reactjs',
     'Python', 'Angular', 'Wordpress', 'Vuejs']);
 
@@ -26,22 +30,41 @@ function App() {
   }
 
   // console.log(visibility);
-  // console.log(userEdit);
+  // console.log(userEdit[0]);
+  // console.log(userVal);
 
 
   function addInList() {
-    (userInput === "" || userInput === undefined) ? setuserdvisibility((preval) => {
-      let oldVal = [...preval];
-      oldVal[0] = 'visible';
-      oldVal[1] = 'border-danger';
-      return oldVal;
-    })
-      : setuserVal((preval) => {
+
+    if (userInput === "" || userInput === undefined) {
+      setuserdvisibility((preval) => {
+        let oldVal = [...preval];
+        oldVal[0] = 'visible';
+        oldVal[1] = 'border-danger';
+        return oldVal;
+      })
+    }
+    else if (userEdit[0] === userVal.map((val, ind) => { return ind })[userEdit[0]] && userEdit[0] !== undefined) {
+      setuserVal((oldv) => {
+        let arr = [...oldv]
+        arr[userEdit[0]] = userInput
+        return arr;
+      })
+    }
+
+    else {
+
+      setuserVal((preval) => {
+        console.log('hello')
         return [userInput, ...preval];
       });
+    }
+
 
     setuserInput('');
   }
+
+
   function sendValBack(e) {
     // console.log(e);
     setuserInput(e.target.innerHTML);
@@ -54,7 +77,21 @@ function App() {
       return oldVal;
     }) : console.log('No value')
 
+    // setuserEdit(e.target.id)
+    setuserEdit((prval) => {
+      let id = e.target.id
+      return [Number(id)]
+    })
 
+  }
+
+  function deletIcon(val) {
+    setuserVal((oldv) => {
+      let arr = [...oldv]
+      arr.splice(val, 1,);
+      return arr
+
+    })
   }
 
 
@@ -65,17 +102,17 @@ function App() {
         <div className='row d-flex justify-content-center mx-2'>
           <div className='col col-lg-5 col-xg-5 col-sm-6 col-md-6 shadow bg-dark bg-gradient mt-4 px-0 rounded'>
             <div className='row d-flex justify-content-center mt-3'>
-              <div className='col-auto h3 myfont text-center text-opacity-25 text-dark-emphasis'>To Do App</div>
+              <div className='col-auto h3 myfont text-center text-opacity-50 text-light'>To Do App</div>
             </div>
 
             {/* Input and a button start */}
 
             <div className='row d-flex justify-content-center mt-2'>
-              <div className='col-9  px-0 rounded'>
+              <div className='col-10  p-0 rounded'>
                 <div className="input-group">
                   <input type="text" className="form-control bg-light border-0" value={userInput} onChange={userChange} placeholder="some words"
                     aria-label="Recipient's username" autoFocus />
-                  <button className="btn bg-dark bg-gradient px-3 text-light" type="button" id="button-addon2" onClick={addInList}><AddIcon /></button>
+                  <button className="btn p-0 ps-3 text-info" type="button" id="button-addon2" onClick={addInList}><AddIcon className='fs-1' /></button>
                 </div>
                 <ErrorMsg D_block={visibility[0]} />
 
@@ -97,7 +134,7 @@ function App() {
             <div className='py-2'>
               <div className='List_body_scoll'>
                 {userVal.map((val, ind) => {
-                  return <ListContainer key={ind} value={val} IndexNum={ind} SendValBack={sendValBack} />
+                  return <ListContainer key={ind} value={val} IndexNum={ind} SendValBack={sendValBack} DeLetIcon={deletIcon} />
                 })}
               </div>
             </div>
