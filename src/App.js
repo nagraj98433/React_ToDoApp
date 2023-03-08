@@ -3,16 +3,15 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import AddIcon from '@mui/icons-material/Add';
 import ListContainer from './ListContainer';
+import EditIcon from '@mui/icons-material/Edit';
 import ErrorMsg from './ErrorMsg';
-
-
 
 
 function App() {
 
-
   let [visibility, setuserdvisibility] = useState(['invisible', 'border-light']);
   let [userInput, setuserInput] = useState();
+  let [isEdit, setisEdit] = useState(true)
   let [userEdit, setuserEdit] = useState([]);
   let [userVal, setuserVal] = useState(['Javascript', 'Flutter', 'Reactjs',
     'Python', 'Angular', 'Wordpress', 'Vuejs']);
@@ -31,7 +30,28 @@ function App() {
 
   // console.log(visibility);
   // console.log(userEdit[0]);
-  // console.log(userVal);
+  console.log(userVal);
+
+
+  function Edit() {
+
+    if (userEdit[0] === userVal.map((val, ind) => { return ind })[userEdit[0]] && userEdit[0] !== undefined) {
+      console.log(userEdit[0] === userVal.map((val, ind) => { return ind })[userEdit[0]] && userEdit[0] !== undefined)
+      setuserVal((oldv) => {
+        let arr = [...oldv]
+        arr[userEdit[0]] = userInput
+        return arr;
+      })
+
+    }
+
+    else {
+
+    }
+    setisEdit(isEdit = true)
+
+    setuserInput('');
+  }
 
 
   function addInList() {
@@ -44,18 +64,11 @@ function App() {
         return oldVal;
       })
     }
-    else if (userEdit[0] === userVal.map((val, ind) => { return ind })[userEdit[0]] && userEdit[0] !== undefined) {
-      setuserVal((oldv) => {
-        let arr = [...oldv]
-        arr[userEdit[0]] = userInput
-        return arr;
-      })
-    }
 
     else {
 
       setuserVal((preval) => {
-        console.log('hello')
+        // console.log(preval)
         return [userInput, ...preval];
       });
     }
@@ -82,6 +95,7 @@ function App() {
       let id = e.target.id
       return [Number(id)]
     })
+    setisEdit(isEdit = false)
 
   }
 
@@ -113,7 +127,8 @@ function App() {
                 <div className="input-group">
                   <input type="text" className="form-control bg-light border-0" value={userInput} onChange={userChange} placeholder="some words"
                     aria-label="Recipient's username" autoFocus />
-                  <button className="btn p-0 ps-3 text-info" type="button" id="button-addon2" onClick={addInList}><AddIcon className='fs-1' /></button>
+                  {isEdit ? <button className="btn p-0 ps-3 text-info" type="button" id="button-addon2" onClick={addInList}><AddIcon className='fs-1' /></button>
+                    : <button className="btn p-0 ps-3 text-info" type="button" id="button-addon2" onClick={Edit}><EditIcon /></button>}
                 </div>
                 <ErrorMsg D_block={visibility[0]} />
 
